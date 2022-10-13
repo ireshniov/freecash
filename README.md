@@ -6,6 +6,7 @@ Freecash code challenge.
 
 ```bash
 $ cp .env.example .env
+$ npm ci --ignore-scripts
 $ npm run build
 $ docker-compose up -d --build
 ```
@@ -13,7 +14,7 @@ $ docker-compose up -d --build
 ## Running DB migrations
 
 ```bash
-$ docker exec -w /usr/src/tier-app tier-app npm run migration:run:dev
+$ docker exec -w /freecash freecash-app npm run migration:run:dev
 ```
 
 ## Use the app

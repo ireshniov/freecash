@@ -22,7 +22,7 @@ RUN addgroup --gid 1001 --system freecash && \
     chown -R freecash:freecash /freecash
 
 COPY --chown=freecash --from=builder /freecash/package.json package.json
-COPY --chown=freeca`sh --from=builder /freecash/node_modules node_modules
+COPY --chown=freecash --from=builder /freecash/node_modules node_modules
 COPY --chown=freecash --from=builder /freecash/dist dist
 
 USER 1001:1001
