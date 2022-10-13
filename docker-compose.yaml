@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  freecash-app:
+    container_name: freecash-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/freecash
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    entrypoint: npm
+    command: 'run start:ts:watch'
+    env_file:
+      - .env
+    networks:
+      - freecash
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - freecash
+
+networks:
+  freecash:
+
+volumes:
+  mysqldata:
